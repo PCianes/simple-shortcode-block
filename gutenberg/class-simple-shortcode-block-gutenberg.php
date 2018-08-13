@@ -168,11 +168,10 @@ class Simple_Shortcode_Block_Gutenberg {
 		/**
 		 * Hook server side rendering into render callback
 		 */
-		register_block_type( 'simple-shortcode-block/block-name-dynamic', array(
+		register_block_type( 'simple-shortcode-block/shortcode', array(
 			'attributes'      => array(
-				'number' => array(
-					'type' => 'number',
-					'default' => 5
+				'shortcode' => array(
+					'type' => 'string',
 				),
 			),
 			'render_callback' => array( Simple_Shortcode_Block_Render_Dynamic::class, 'block_name_dynamic'),

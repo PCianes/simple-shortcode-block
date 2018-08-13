@@ -11,8 +11,4 @@
 
 import './i18n.js';
 
-import './basic';
-import './dynamic';
-import './media-upload';
-import './meta-box';
-import './modular';
+import './shortcode';
