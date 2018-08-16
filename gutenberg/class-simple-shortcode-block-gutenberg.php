@@ -66,14 +66,13 @@ class Simple_Shortcode_Block_Gutenberg {
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' )
 		);
 
-		/*
 		wp_enqueue_style(
 			'simple-shortcode-block-gutenberg-editor',
 			plugin_dir_url( __FILE__ ) . 'dist/blocks.editor.build.css',
 			array( 'wp-edit-blocks' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.editor.build.css' )
 		);
-		*/
+
 	}
 
 	/**
@@ -151,7 +150,11 @@ class Simple_Shortcode_Block_Gutenberg {
 	 */
 	public static function render_dynamic_shortcode( $attributes ) {
 
-		return do_shortcode( $attributes['shortcode'] );
+		if ( is_null( $attributes['shortcode'] ) ) {
+			return __( 'Please, set here the [shortcode] to render', 'simple-shortcode-block' );
+		}
+
+		return do_shortcode( sanitize_text_field( $attributes['shortcode'] ) );
 
 	}
 

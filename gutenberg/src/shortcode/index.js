@@ -1,12 +1,30 @@
 /**
+ * Block dependencies
+ */
+import classnames from 'classnames';
+import './editor.scss';
+
+/**
  * Internal block libraries
  */
 const { __ } = wp.i18n;
 const { InspectorControls, PlainText } = wp.editor;
 const { registerBlockType } = wp.blocks;
-const { ServerSideRender, PanelBody, TextControl, Dashicon } = wp.components;
+const { ServerSideRender, PanelBody, Dashicon } = wp.components;
 
-const Shortcode =
+const DynamicShortcodeInput = ( { attributes : { shortcode }, className, setAttributes } ) => (
+	<div className={ classnames( className, 'ssb-shortcode-input' ) }>
+		<label className="ssb-shortcode-label">
+			<Dashicon icon="shortcode" />{ __( 'Shortcode', 'simple-shortcode-block' ) }
+		</label>
+		<PlainText
+			className="input-control"
+			value={ shortcode }
+			placeholder={ __( 'Write here your [shortcode]' ) }
+			onChange={ shortcode => setAttributes( { shortcode } ) }
+		/>
+	</div>
+  );
 
 registerBlockType(
     'simple-shortcode-block/shortcode',
@@ -17,23 +35,19 @@ registerBlockType(
 			background: 'rgba(41, 170, 227)',
 			src: 'shortcode',
 		},
-        category: 'widgets',
+		category: 'widgets',
+		supports: {
+			html: false,
+		},
         edit( { attributes, className, setAttributes, isSelected } ) {
-			const { shortcode } = attributes;
 			return (
 				<div className={ className }>
 					{ isSelected ? (
-						<div>
-							<label>
-								<Dashicon icon="shortcode" />{ __( 'Shortcode' ) }
-							</label>
-							<PlainText
-							className="input-control"
-							value={ shortcode }
-							placeholder={ __( 'Write [shortcode] here…' ) }
-							onChange={ shortcode => setAttributes( { shortcode } ) }
-							/>
-						</div>
+						<DynamicShortcodeInput
+							attributes={ attributes }
+							className={ className }
+							setAttributes={ setAttributes }
+						/>
 						) :
 						<ServerSideRender
 							block="simple-shortcode-block/shortcode"
@@ -42,14 +56,10 @@ registerBlockType(
 					}
 					<InspectorControls>
 						<PanelBody>
-							<label>
-								<Dashicon icon="shortcode" />{ __( 'Shortcode' ) }
-							</label>
-							<PlainText
-							className="input-control"
-							value={ shortcode }
-							placeholder={ __( 'Write [shortcode] here…' ) }
-							onChange={ shortcode => setAttributes( { shortcode } ) }
+							<DynamicShortcodeInput
+								attributes={ attributes }
+								className={ className }
+								setAttributes={ setAttributes }
 							/>
 						</PanelBody>
 					</InspectorControls>
