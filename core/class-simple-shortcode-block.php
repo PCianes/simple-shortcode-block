@@ -66,8 +66,8 @@ class Simple_Shortcode_Block {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'Simple_Shortcode_Block_Version' ) ) {
-			$this->version = Simple_Shortcode_Block_Version;
+		if ( defined( 'SIMPLE_SHORTCODE_BLOCK_VERSION' ) ) {
+			$this->version = SIMPLE_SHORTCODE_BLOCK_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
@@ -75,8 +75,6 @@ class Simple_Shortcode_Block {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
 		$this->define_gutenberg_hooks();
 
 	}
@@ -88,8 +86,6 @@ class Simple_Shortcode_Block {
 	 *
 	 * - Simple_Shortcode_Block_Loader. Orchestrates the hooks of the plugin.
 	 * - Simple_Shortcode_Block_i18n. Defines internationalization functionality.
-	 * - Simple_Shortcode_Block_Admin. Defines all hooks for the admin area.
-	 * - Simple_Shortcode_Block_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -112,28 +108,9 @@ class Simple_Shortcode_Block {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'core/class-simple-shortcode-block-i18n.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-simple-shortcode-block-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-simple-shortcode-block-public.php';
-
-		/**
 		 * The class responsible for defining all actions that occur about new WordPress editor: GUTENBERG
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'gutenberg/class-simple-shortcode-block-gutenberg.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site and also into admin area, like libraries and helpers
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-simple-shortcode-block-includes.php';
-
-		$includes = new Simple_Shortcode_Block_Includes( $this->get_plugin_name(), $this->get_version() );
 
 		/**
 		 * Get loader using its singleton
@@ -160,44 +137,6 @@ class Simple_Shortcode_Block {
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality
-	 * of the plugin.
-	 *
-	 * Instance all class you have into ADMIN folder and add the objet to the loader,
-	 * and remember to 'require_once' into admin class on the function: load_dependencies()
-	 * similar this core class.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_admin_hooks() {
-
-		$plugin_admin = new Simple_Shortcode_Block_Admin( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-	}
-
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * Instance all class you have into PUBLIC folder and add the objet to the loader,
-	 * and remember to 'require_once' into admin class on the function: load_dependencies()
-	 * similar this core class.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks() {
-
-		$plugin_public = new Simple_Shortcode_Block_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-	}
-
-	/**
 	 * Register all of the hooks related to Gutenberg
 	 *
 	 * Instance all class you have into GUTENBERG folder and add the objet to the loader,
@@ -212,13 +151,10 @@ class Simple_Shortcode_Block {
 		$plugin_gutenberg = new Simple_Shortcode_Block_Gutenberg( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'enqueue_block_editor_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets_editor' );
-		$this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets' );
-		$this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets_frontend' );
+		//$this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets' );
+		//$this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets_frontend' );
 
-		$this->loader->add_filter( 'block_categories', $plugin_gutenberg, 'add_custom_blocks_categories', 10, 2 );
 		$this->loader->add_action( 'init', $plugin_gutenberg, 'register_dynamic_blocks' );
-		$this->loader->add_action( 'init', $plugin_gutenberg, 'register_meta_fields' );
-		//$this->loader->add_filter( 'register_post_type_args', $plugin_gutenberg, 'add_templates_to_post_types', 20, 2 );
 
 	}
 

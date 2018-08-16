@@ -12,9 +12,9 @@
  * @package           Simple_Shortcode_Block
  *
  * @wordpress-plugin
- * Plugin Name:       Simple_Shortcode_Block
+ * Plugin Name:       Simple Shortcode Block
  * Plugin URI:        https://pablocianes.com/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       A simple block to render a shortcode in a dynamic way.
  * Version:           1.0.0
  * Author:            Pablo Cianes
  * Author URI:        https://pablocianes.com/
@@ -25,18 +25,18 @@
  */
 
 /*
-Simple_Shortcode_Block is free software: you can redistribute it and/or modify
+Simple Shortcode Block is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 any later version.
 
-Simple_Shortcode_Block is distributed in the hope that it will be useful,
+Simple Shortcode Block is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Simple_Shortcode_Block. If not, see http://www.gnu.org/licenses/gpl-2.0.txt.
+along with Simple Shortcode Block. If not, see http://www.gnu.org/licenses/gpl-2.0.txt.
 */
 
 // If this file is called directly, abort.
@@ -49,7 +49,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'Simple_Shortcode_Block_Version', '1.0.0' );
+define( 'SIMPLE_SHORTCODE_BLOCK_VERSION', '1.0.0' );
 
 /**
  * The code that runs only in dev mode
@@ -60,27 +60,6 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 	require_once __DIR__ . '/tests/dev/simple-shortcode-block-configuration.php';
 }
-
-/**
- * The code that runs during plugin activation.
- * This action is documented in core/class-simple-shortcode-block-activator.php
- */
-function activate_simple_shortcode_block() {
-	require_once plugin_dir_path( __FILE__ ) . 'core/class-simple-shortcode-block-activator.php';
-	Simple_Shortcode_Block_Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in core/class-simple-shortcode-block-deactivator.php
- */
-function deactivate_simple_shortcode_block() {
-	require_once plugin_dir_path( __FILE__ ) . 'core/class-simple-shortcode-block-deactivator.php';
-	Simple_Shortcode_Block_Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, 'activate_simple_shortcode_block' );
-register_deactivation_hook( __FILE__, 'deactivate_simple_shortcode_block' );
 
 /**
  * The core plugin class that is used to define internationalization,

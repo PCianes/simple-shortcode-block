@@ -1,9 +1,4 @@
 /**
- * Block dependencies
- */
-import './style.scss';
-
-/**
  * Internal block libraries
  */
 const { __ } = wp.i18n;

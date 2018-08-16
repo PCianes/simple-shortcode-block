@@ -50,43 +50,6 @@ class Simple_Shortcode_Block_Gutenberg {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
-		$this->load_dependencies();
-	}
-
-	/**
-	 * Load the required dependencies for the Gutenberg facing functionality.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function load_dependencies() {
-		/**
-		 * The static class responsible for dynamic callbacks from PHP to Gutenberg
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'gutenberg/class-simple-shortcode-block-render-dynamic.php';
-	}
-
-	/**
-	 * Add new custom categories for blocks
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_custom_blocks_categories( $categories, $post ) {
-
-		if ( $post->post_type !== 'post' ) {
-			return $categories;
-		}
-
-		return array_merge(
-			$categories,
-			array(
-				array(
-					'slug' => 'simple-shortcode-block',
-					'title' => __( 'Simple_Shortcode_Block', 'simple-shortcode-block' ),
-				),
-			)
-		);
 	}
 
 	/**
@@ -103,13 +66,14 @@ class Simple_Shortcode_Block_Gutenberg {
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' )
 		);
 
+		/*
 		wp_enqueue_style(
 			'simple-shortcode-block-gutenberg-editor',
 			plugin_dir_url( __FILE__ ) . 'dist/blocks.editor.build.css',
 			array( 'wp-edit-blocks' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.editor.build.css' )
 		);
-
+		*/
 	}
 
 	/**
@@ -174,58 +138,20 @@ class Simple_Shortcode_Block_Gutenberg {
 					'type' => 'string',
 				),
 			),
-			'render_callback' => array( Simple_Shortcode_Block_Render_Dynamic::class, 'block_name_dynamic'),
+			'render_callback' => array( Simple_Shortcode_Block_Gutenberg::class, 'render_dynamic_shortcode' ),
 		 	)
 		);
 
 	}
 
 	/**
-	 * Allow to work in Gutenberg with some meta fields
+	 * Callback to render dynamic block
 	 *
 	 * @since    1.0.0
 	 */
-	public function register_meta_fields() {
+	public static function render_dynamic_shortcode( $attributes ) {
 
-		register_meta(
-			'post',
-			'simple-shortcode-block-meta-key-name',
-			array(
-				'type'         => 'string', //'number'
-				'single'       => true,
-				'show_in_rest' => true,
-			 )
-		);
-
-	}
-
-	/**
-	 * Add Gutenberg templates to post types
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_templates_to_post_types( $args, $post_type ) {
-
-		if ( 'post' == $post_type ) {
-
-			$args['template_lock'] = true;
-			$args['template']      = [
-				[
-					'core/image',
-					[
-						'align' => 'left',
-					],
-				],
-				[
-					'core/paragraph',
-					[
-						'placeholder' => 'The only thing you can add',
-					],
-				],
-			];
-		}
-
-		return $args;
+		return do_shortcode( $attributes['shortcode'] );
 
 	}
 
