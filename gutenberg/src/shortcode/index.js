@@ -1,30 +1,16 @@
 /**
  * Block dependencies
  */
-import classnames from 'classnames';
+import DynamicShortcodeInput from './shortcode';
+import Inspector from './inspector';
 import './editor.scss';
 
 /**
  * Internal block libraries
  */
 const { __ } = wp.i18n;
-const { InspectorControls, PlainText } = wp.editor;
 const { registerBlockType } = wp.blocks;
-const { ServerSideRender, PanelBody, Dashicon } = wp.components;
-
-const DynamicShortcodeInput = ( { attributes : { shortcode }, className, setAttributes } ) => (
-	<div className={ classnames( className, 'ssb-shortcode-input' ) }>
-		<label className="ssb-shortcode-label">
-			<Dashicon icon="shortcode" />{ __( 'Shortcode', 'simple-shortcode-block' ) }
-		</label>
-		<PlainText
-			className="input-control"
-			value={ shortcode }
-			placeholder={ __( 'Write here your [shortcode]' ) }
-			onChange={ shortcode => setAttributes( { shortcode } ) }
-		/>
-	</div>
-  );
+const { ServerSideRender } = wp.components;
 
 registerBlockType(
     'simple-shortcode-block/shortcode',
@@ -39,7 +25,9 @@ registerBlockType(
 		supports: {
 			html: false,
 		},
-        edit( { attributes, className, setAttributes, isSelected } ) {
+		edit: props => {
+		const { attributes, className, setAttributes, isSelected } = props;
+		const { checkboxControl, selectStyle } = attributes;
 			return (
 				<div className={ className }>
 					{ isSelected ? (
@@ -49,20 +37,15 @@ registerBlockType(
 							setAttributes={ setAttributes }
 						/>
 						) :
+						<div>
 						<ServerSideRender
 							block="simple-shortcode-block/shortcode"
 							attributes={ attributes }
 						/>
+						{ checkboxControl && ( <link rel="stylesheet" type="text/css" href={ selectStyle } /> ) }
+						</div>
 					}
-					<InspectorControls>
-						<PanelBody>
-							<DynamicShortcodeInput
-								attributes={ attributes }
-								className={ className }
-								setAttributes={ setAttributes }
-							/>
-						</PanelBody>
-					</InspectorControls>
+					<Inspector { ...{ setAttributes, ...props } } />
 				</div>
 			);
 		},
