@@ -59,12 +59,15 @@ class Simple_Shortcode_Block_Gutenberg {
 	 */
 	public function enqueue_all_blocks_assets_editor() {
 
-		wp_enqueue_script(
+		wp_register_script(
 			'simple-shortcode-block-gutenberg-editor',
 			plugin_dir_url( __FILE__ ) . 'dist/blocks.build.js',
 			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-components' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' )
 		);
+
+		wp_localize_script( 'simple-shortcode-block-gutenberg-editor', 'ssb_plugins_register_styles', get_option( 'save_data_enqueue' ) );
+		wp_enqueue_script( 'simple-shortcode-block-gutenberg-editor' );
 
 		wp_enqueue_style(
 			'simple-shortcode-block-gutenberg-editor',
@@ -133,7 +136,21 @@ class Simple_Shortcode_Block_Gutenberg {
 		 */
 		register_block_type( 'simple-shortcode-block/shortcode', array(
 			'attributes'      => array(
+				'checkboxControl' => array(
+					'type' => 'boolean',
+					'default' => false,
+				),
 				'shortcode' => array(
+					'type' => 'string',
+				),
+				'checkedStyles' => array(
+					'type' => 'array',
+					'default' => array(),
+				),
+				'selectPlugin' => array(
+					'type' => 'string',
+				),
+				'selectStyle' => array(
 					'type' => 'string',
 				),
 			),
@@ -159,3 +176,4 @@ class Simple_Shortcode_Block_Gutenberg {
 	}
 
 }
+
