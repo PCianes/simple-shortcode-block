@@ -136,21 +136,17 @@ class Simple_Shortcode_Block_Gutenberg {
 		 */
 		register_block_type( 'simple-shortcode-block/shortcode', array(
 			'attributes'      => array(
+				'shortcode' => array(
+					'type' => 'string',
+				),
 				'checkboxControl' => array(
 					'type' => 'boolean',
 					'default' => false,
 				),
-				'shortcode' => array(
-					'type' => 'string',
-				),
-				'checkedStyles' => array(
-					'type' => 'array',
-					'default' => array(),
-				),
 				'selectPlugin' => array(
 					'type' => 'string',
 				),
-				'selectStyle' => array(
+				'checkedStyles' => array(
 					'type' => 'string',
 				),
 			),
