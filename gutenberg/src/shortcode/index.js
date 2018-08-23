@@ -3,6 +3,7 @@
  */
 import DynamicShortcodeInput from './shortcode';
 import Inspector from './inspector';
+import ShortcodeStyles from './shortcode-styles';
 import './editor.scss';
 
 /**
@@ -27,7 +28,7 @@ registerBlockType(
 		},
 		edit: props => {
 		const { attributes, className, setAttributes, isSelected } = props;
-		const { checkboxControl, selectStyle } = attributes;
+		const { checkboxControl } = attributes;
 			return (
 				<div className={ className }>
 					{ isSelected ? (
@@ -42,7 +43,7 @@ registerBlockType(
 							block="simple-shortcode-block/shortcode"
 							attributes={ attributes }
 						/>
-						{ checkboxControl && ( <link rel="stylesheet" type="text/css" href={ selectStyle } /> ) }
+						{ checkboxControl && ( <ShortcodeStyles { ...{ setAttributes, ...props } } /> ) }
 						</div>
 					}
 					<Inspector { ...{ setAttributes, ...props } } />
