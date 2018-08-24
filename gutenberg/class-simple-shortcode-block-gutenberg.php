@@ -66,7 +66,7 @@ class Simple_Shortcode_Block_Gutenberg {
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' )
 		);
 
-		wp_localize_script( 'simple-shortcode-block-gutenberg-editor', 'ssb_plugins_register_styles', get_option( 'save_data_enqueue' ) );
+		wp_localize_script( 'simple-shortcode-block-gutenberg-editor', 'ssb_plugins_register_styles', get_option( 'ssb_plugins_data_styles' ) );
 		wp_enqueue_script( 'simple-shortcode-block-gutenberg-editor' );
 
 		wp_enqueue_style(
@@ -139,10 +139,6 @@ class Simple_Shortcode_Block_Gutenberg {
 				'shortcode' => array(
 					'type' => 'string',
 				),
-				'checkboxControl' => array(
-					'type' => 'boolean',
-					'default' => false,
-				),
 				'selectPlugin' => array(
 					'type' => 'string',
 				),
@@ -168,6 +164,38 @@ class Simple_Shortcode_Block_Gutenberg {
 		}
 
 		return do_shortcode( sanitize_text_field( $attributes['shortcode'] ) );
+
+	}
+
+	/**
+	 * Get in footer all plugins assets and save it to choose this later with the block
+	 *
+	 * @since    1.0.0
+	 */
+	public function get_all_plugins_assets() {
+
+		foreach ( $GLOBALS['wp_styles'] -> registered as $registered ){
+
+			$style_src = $registered->src;
+
+			if ( ( strpos( $style_src, 'wp-includes' ) !== false ) ||  ( strpos( $style_src, 'wp-admin' ) !== false ) || ( strpos( $style_src, 'gutenberg' ) !== false ) ) {
+				continue;
+			}
+
+			$search_position = strpos( $style_src, 'plugins' );
+
+			if ( $search_position !== false ) {
+
+				$plugin_url = explode( '/', substr( $style_src, $search_position + 8 ) );
+
+				$style_urls[ $plugin_url[0] ][] = array(
+					'name'	=> $registered -> handle,
+					'src'	=> $style_src,
+				);
+			}
+		}
+
+		update_option( 'ssb_plugins_data_styles', $style_urls );
 
 	}
 

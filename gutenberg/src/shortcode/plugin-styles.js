@@ -33,6 +33,7 @@ export default class PluginStyles extends Component {
 						return (
 						<ToggleControl
 							id={ style.name }
+							key={ style.name }
 							label={ style.name }
 							value={ checkedStylesTemp.indexOf(style.src) >= 0 }
 							checked={ checkedStylesTemp.indexOf(style.src) >= 0 }

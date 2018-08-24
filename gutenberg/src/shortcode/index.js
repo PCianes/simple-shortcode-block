@@ -28,24 +28,18 @@ registerBlockType(
 		},
 		edit: props => {
 		const { attributes, className, setAttributes, isSelected } = props;
-		const { checkboxControl } = attributes;
 			return (
 				<div className={ className }>
-					{ isSelected ? (
-						<DynamicShortcodeInput
-							attributes={ attributes }
-							className={ className }
-							setAttributes={ setAttributes }
-						/>
-						) :
-						<div>
-						<ServerSideRender
-							block="simple-shortcode-block/shortcode"
-							attributes={ attributes }
-						/>
-						{ checkboxControl && ( <ShortcodeStyles { ...{ setAttributes, ...props } } /> ) }
-						</div>
-					}
+					<DynamicShortcodeInput
+						attributes={ attributes }
+						className={ className }
+						setAttributes={ setAttributes }
+					/>
+					<ServerSideRender
+						block="simple-shortcode-block/shortcode"
+						attributes={ attributes }
+					/>
+					<ShortcodeStyles { ...{ setAttributes, ...props } } />
 					<Inspector { ...{ setAttributes, ...props } } />
 				</div>
 			);

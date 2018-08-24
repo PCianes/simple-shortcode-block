@@ -27,7 +27,7 @@ export default class ShortcodeStyles extends Component {
 					show && ( checkedStylesTemp.map( srcStyle =>{
 						if ( srcStyle != '' ) {
 							return (
-								<link rel="stylesheet" type="text/css" href={ srcStyle } />
+								<link key={ srcStyle } rel="stylesheet" type="text/css" href={ srcStyle } />
 							);
 						}
 					})
