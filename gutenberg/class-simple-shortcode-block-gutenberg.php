@@ -147,6 +147,10 @@ class Simple_Shortcode_Block_Gutenberg {
 				'shortcode' => array(
 					'type' => 'string',
 				),
+				'showInputShortcode' => array(
+					'type'	=> 'boolean',
+					'default' => true,
+				),
 				'selectPlugin' => array(
 					'type' => 'string',
 				),

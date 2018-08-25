@@ -28,7 +28,7 @@ export default class ShortcodeScritps extends Component {
 
 						if ( srcScript != '' ) {
 							return (
-								<script key={ srcScript } type="text/javascript/defer" src={ srcScript } async defer></script>
+								<script key={ srcScript } type="text/javascript/defer" src={ srcScript }></script>
 							);
 						}
 
