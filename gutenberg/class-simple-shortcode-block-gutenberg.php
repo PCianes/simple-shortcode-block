@@ -67,6 +67,7 @@ class Simple_Shortcode_Block_Gutenberg {
 		);
 
 		wp_localize_script( 'simple-shortcode-block-gutenberg-editor', 'ssb_plugins_register_styles', get_option( 'ssb_plugins_data_styles' ) );
+		wp_localize_script( 'simple-shortcode-block-gutenberg-editor', 'ssb_plugins_register_scripts', get_option( 'ssb_plugins_data_scripts' ) );
 		wp_enqueue_script( 'simple-shortcode-block-gutenberg-editor' );
 
 		wp_enqueue_style(
@@ -74,6 +75,13 @@ class Simple_Shortcode_Block_Gutenberg {
 			plugin_dir_url( __FILE__ ) . 'dist/blocks.editor.build.css',
 			array( 'wp-edit-blocks' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.editor.build.css' )
+		);
+
+		wp_enqueue_script(
+			'simple-shortcode-block-gutenberg-editor-defer',
+			plugin_dir_url( __FILE__ ) . 'src/editor.blocks.js',
+			array( 'jquery' ),
+			filemtime( plugin_dir_path( __FILE__ ) . 'src/editor.blocks.js' )
 		);
 
 	}
@@ -145,6 +153,9 @@ class Simple_Shortcode_Block_Gutenberg {
 				'checkedStyles' => array(
 					'type' => 'string',
 				),
+				'checkedScripts' => array(
+					'type' => 'string',
+				),
 			),
 			'render_callback' => array( Simple_Shortcode_Block_Gutenberg::class, 'render_dynamic_shortcode' ),
 		 	)
@@ -195,9 +206,30 @@ class Simple_Shortcode_Block_Gutenberg {
 			}
 		}
 
+		foreach ( $GLOBALS['wp_scripts'] -> registered as $registered ){
+
+			$script_src = $registered->src;
+
+			if ( ( strpos( $script_src, 'wp-includes' ) !== false ) ||  ( strpos( $script_src, 'wp-admin' ) !== false ) || ( strpos( $script_src, 'gutenberg' ) !== false ) ) {
+				continue;
+			}
+
+			$search_position = strpos( $script_src, 'plugins' );
+
+			if ( $search_position !== false ) {
+
+				$plugin_url = explode( '/', substr( $script_src, $search_position + 8 ) );
+
+				$script_urls[ $plugin_url[0] ][] = array(
+					'name'	=> $registered -> handle,
+					'src'	=> $script_src,
+				);
+			}
+		}
+
 		update_option( 'ssb_plugins_data_styles', $style_urls );
+		update_option( 'ssb_plugins_data_scripts', $script_urls );
 
 	}
 
 }
-

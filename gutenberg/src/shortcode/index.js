@@ -4,6 +4,7 @@
 import DynamicShortcodeInput from './shortcode';
 import Inspector from './inspector';
 import ShortcodeStyles from './shortcode-styles';
+import ShortcodeScripts from './shortcode-scripts';
 import './editor.scss';
 
 /**
@@ -40,6 +41,7 @@ registerBlockType(
 						attributes={ attributes }
 					/>
 					<ShortcodeStyles { ...{ setAttributes, ...props } } />
+					<ShortcodeScripts { ...{ setAttributes, ...props } } />
 					<Inspector { ...{ setAttributes, ...props } } />
 				</div>
 			);

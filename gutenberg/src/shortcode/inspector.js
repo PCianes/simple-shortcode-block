@@ -3,6 +3,7 @@
  */
 import DynamicShortcodeInput from './shortcode';
 import PluginStyles from './plugin-styles';
+import PluginScripts from './plugin-scripts';
 
 /**
  * Internal block libraries
@@ -41,14 +42,16 @@ export default class Inspector extends Component {
 								<PanelRow>
 									<p>{ __( 'Do not you see what you expected? If the plugin of your shortcode not load styles in the backend first try to save and refresh this page. If the problem persists try with the following:', 'simple-shortcode-block' ) }</p>
 								</PanelRow>
+								<PanelRow>
+									<p class="ssb-blue">{ __( '1.- Select the plugin of your shortcode:', 'simple-shortcode-block' ) }</p>
+								</PanelRow>
 								<SelectControl
-									label={ __( '1.- Select the plugin of your shortcode:', 'simple-shortcode-block' ) }
 									value={ selectPlugin }
 									options={ pluginsNames }
 									onChange={ selectPlugin => setAttributes( { selectPlugin } ) }
 								/>
 								<PanelRow>
-									<p>{ __( '2.-Try to load CSS & JS by manually selecting them:', 'simple-shortcode-block' ) }</p>
+									<p class="ssb-blue">{ __( '2.-Try to load CSS & JS by manually selecting them:', 'simple-shortcode-block' ) }</p>
 								</PanelRow>
 							</PanelBody>
               <PanelBody
@@ -59,6 +62,20 @@ export default class Inspector extends Component {
                   <p>{ __( 'Try to load styles by manually selecting one or more:', 'simple-shortcode-block' ) }</p>
 								</PanelRow>
 								<PluginStyles { ...{ setAttributes, ...this.props } } />
+							</PanelBody>
+							<PanelBody
+								title={ __( 'JS scripts', 'simple-shortcode-block' ) }
+								initialOpen={ false }
+							>
+                <PanelRow>
+                  <p>{ __( 'Try to load scripts by manually selecting one or more:', 'simple-shortcode-block' ) }</p>
+								</PanelRow>
+								<PluginScripts { ...{ setAttributes, ...this.props } } />
+							</PanelBody>
+							<PanelBody>
+                <PanelRow>
+                  <p class="ssb-blue">{ __( '3.-Save and manual refresh this page.', 'simple-shortcode-block' ) }</p>
+								</PanelRow>
 							</PanelBody>
 						</InspectorControls>
         );

@@ -4,3 +4,10 @@
  * Can include things like variables and mixins
  * that are used across the project.
 */
+
+$blue : #29AAE3;
+
+p.ssb-blue {
+		color: $blue;
+		font-weight: 600;
+}
