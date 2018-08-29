@@ -74,7 +74,7 @@ export default class Inspector extends Component {
 							</PanelBody>
 							<PanelBody>
                 <PanelRow>
-                  <p className="ssb-blue">{ __( '3.-Save and manual refresh this page.', 'simple-shortcode-block' ) }</p>
+                  <p className="ssb-blue">{ __( '3.-Save and manual refresh this page again.', 'simple-shortcode-block' ) }</p>
 								</PanelRow>
 							</PanelBody>
 						</InspectorControls>
