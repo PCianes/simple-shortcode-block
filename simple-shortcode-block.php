@@ -13,7 +13,6 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Simple Shortcode Block
- * Plugin URI:        https://pablocianes.com/
  * Description:       A simple block to render a shortcode in a dynamic way.
  * Version:           1.0.0
  * Author:            Pablo Cianes
