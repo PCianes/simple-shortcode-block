@@ -153,9 +153,8 @@ class Simple_Shortcode_Block {
 		$this->loader->add_action( 'wp_footer', $plugin_gutenberg, 'get_all_plugins_assets', PHP_INT_MAX );
 
 		$this->loader->add_action( 'enqueue_block_editor_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets_editor', PHP_INT_MAX );
-		//$this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets' );
-		//$this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets_frontend' );
-
+		// $this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets' );
+		// $this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets_frontend' );
 		$this->loader->add_action( 'init', $plugin_gutenberg, 'register_dynamic_blocks' );
 
 	}

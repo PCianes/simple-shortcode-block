@@ -57,7 +57,4 @@ class Simple_Shortcode_Block_I18n {
 		);
 
 	}
-
-
-
 }

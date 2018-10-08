@@ -13,48 +13,48 @@ Object.keys( ssb_plugins_register_styles ).map( ( pluginSlug ) => {
  */
 export default class PluginStyles extends Component {
 
-		constructor() {
-			super( ...arguments );
-		}
+	constructor() {
+		super( ...arguments );
+	}
 
     render() {
-				const { attributes, setAttributes } = this.props;
-				const { shortcode, selectPlugin, checkedStyles } = attributes;
-				let stylesPlugin = [];
-				stylesPlugin = pluginsData[ selectPlugin ] ? pluginsData[ selectPlugin ] : false;
+		const { attributes, setAttributes } = this.props;
+		const { shortcode, selectPlugin, checkedStyles } = attributes;
+		let stylesPlugin = [];
+		stylesPlugin = pluginsData[ selectPlugin ] ? pluginsData[ selectPlugin ] : false;
         return (
-					stylesPlugin && ( stylesPlugin.map( style =>{
-						let checkedStylesTemp;
-						if ( typeof( checkedStyles ) == 'undefined' || typeof( shortcode ) == 'undefined' ) {
-							checkedStylesTemp = [];
+			stylesPlugin && ( stylesPlugin.map( style =>{
+				let checkedStylesTemp;
+				if ( typeof( checkedStyles ) == 'undefined' || typeof( shortcode ) == 'undefined' ) {
+					checkedStylesTemp = [];
+				} else {
+					checkedStylesTemp = checkedStyles.split(',');
+				}
+				return (
+				<ToggleControl
+					id={ style.name }
+					key={ style.name }
+					label={ style.name }
+					value={ checkedStylesTemp.indexOf(style.src) >= 0 }
+					checked={ checkedStylesTemp.indexOf(style.src) >= 0 }
+					onChange={ checked => {
+						if ( checked && !( checkedStylesTemp.indexOf(style.src) >= 0 ) ) {
+							checkedStylesTemp.push( style.src );
 						} else {
-							checkedStylesTemp = checkedStyles.split(',');
+							checkedStylesTemp = checkedStylesTemp.filter( value => value !== style.src );
 						}
-						return (
-						<ToggleControl
-							id={ style.name }
-							key={ style.name }
-							label={ style.name }
-							value={ checkedStylesTemp.indexOf(style.src) >= 0 }
-							checked={ checkedStylesTemp.indexOf(style.src) >= 0 }
-							onChange={ checked => {
-								if ( checked && !( checkedStylesTemp.indexOf(style.src) >= 0 ) ) {
-									checkedStylesTemp.push( style.src );
-								} else {
-									checkedStylesTemp = checkedStylesTemp.filter( value => value !== style.src );
-								}
-								if ( checkedStylesTemp.length == 1 ) {
-									setAttributes( { checkedStyles : checkedStylesTemp[0] } );
-								} else {
-									setAttributes( { checkedStyles : checkedStylesTemp.join() } );
-								}
-								this.setState( { attributes } );
-							}
-							}
-						/>
-						);
-					})
-					)
+						if ( checkedStylesTemp.length == 1 ) {
+							setAttributes( { checkedStyles : checkedStylesTemp[0] } );
+						} else {
+							setAttributes( { checkedStyles : checkedStylesTemp.join() } );
+						}
+						this.setState( { attributes } );
+					}
+					}
+				/>
+				);
+			})
+			)
         );
     }
 }

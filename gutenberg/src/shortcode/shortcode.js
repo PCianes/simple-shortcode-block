@@ -24,4 +24,4 @@ const DynamicShortcodeInput = ( { attributes : { shortcode }, className, setAttr
 	</div>
 	);
 
-	export default DynamicShortcodeInput;
+export default DynamicShortcodeInput;

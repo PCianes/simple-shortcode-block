@@ -142,27 +142,29 @@ class Simple_Shortcode_Block_Gutenberg {
 		/**
 		 * Hook server side rendering into render callback
 		 */
-		register_block_type( 'simple-shortcode-block/shortcode', array(
-			'attributes'      => array(
-				'shortcode' => array(
-					'type' => 'string',
+		register_block_type(
+			'simple-shortcode-block/shortcode',
+			array(
+				'attributes'      => array(
+					'shortcode'          => array(
+						'type' => 'string',
+					),
+					'showInputShortcode' => array(
+						'type'    => 'boolean',
+						'default' => true,
+					),
+					'selectPlugin'       => array(
+						'type' => 'string',
+					),
+					'checkedStyles'      => array(
+						'type' => 'string',
+					),
+					'checkedScripts'     => array(
+						'type' => 'string',
+					),
 				),
-				'showInputShortcode' => array(
-					'type'	=> 'boolean',
-					'default' => true,
-				),
-				'selectPlugin' => array(
-					'type' => 'string',
-				),
-				'checkedStyles' => array(
-					'type' => 'string',
-				),
-				'checkedScripts' => array(
-					'type' => 'string',
-				),
-			),
-			'render_callback' => array( Simple_Shortcode_Block_Gutenberg::class, 'render_dynamic_shortcode' ),
-		 	)
+				'render_callback' => array( self::class, 'render_dynamic_shortcode' ),
+			)
 		);
 
 	}
@@ -189,11 +191,11 @@ class Simple_Shortcode_Block_Gutenberg {
 	 */
 	public function get_all_plugins_assets() {
 
-		foreach ( $GLOBALS['wp_styles'] -> registered as $registered ){
+		foreach ( $GLOBALS['wp_styles']->registered as $registered ) {
 
 			$style_src = $registered->src;
 
-			if ( ( strpos( $style_src, 'wp-includes' ) !== false ) ||  ( strpos( $style_src, 'wp-admin' ) !== false ) || ( strpos( $style_src, 'gutenberg' ) !== false ) ) {
+			if ( ( strpos( $style_src, 'wp-includes' ) !== false ) || ( strpos( $style_src, 'wp-admin' ) !== false ) || ( strpos( $style_src, 'gutenberg' ) !== false ) ) {
 				continue;
 			}
 
@@ -204,17 +206,17 @@ class Simple_Shortcode_Block_Gutenberg {
 				$plugin_url = explode( '/', substr( $style_src, $search_position + 8 ) );
 
 				$style_urls[ $plugin_url[0] ][] = array(
-					'name'	=> $registered -> handle,
-					'src'	=> $style_src,
+					'name' => $registered->handle,
+					'src'  => $style_src,
 				);
 			}
 		}
 
-		foreach ( $GLOBALS['wp_scripts'] -> registered as $registered ){
+		foreach ( $GLOBALS['wp_scripts']->registered as $registered ) {
 
 			$script_src = $registered->src;
 
-			if ( ( strpos( $script_src, 'wp-includes' ) !== false ) ||  ( strpos( $script_src, 'wp-admin' ) !== false ) || ( strpos( $script_src, 'gutenberg' ) !== false ) ) {
+			if ( ( strpos( $script_src, 'wp-includes' ) !== false ) || ( strpos( $script_src, 'wp-admin' ) !== false ) || ( strpos( $script_src, 'gutenberg' ) !== false ) ) {
 				continue;
 			}
 
@@ -225,8 +227,8 @@ class Simple_Shortcode_Block_Gutenberg {
 				$plugin_url = explode( '/', substr( $script_src, $search_position + 8 ) );
 
 				$script_urls[ $plugin_url[0] ][] = array(
-					'name'	=> $registered -> handle,
-					'src'	=> $script_src,
+					'name' => $registered->handle,
+					'src'  => $script_src,
 				);
 			}
 		}

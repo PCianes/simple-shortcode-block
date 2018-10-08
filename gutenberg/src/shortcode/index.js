@@ -31,7 +31,7 @@ registerBlockType(
 			html: false,
 		},
 		edit: props => {
-		const { attributes, className, setAttributes, isSelected } = props;
+		const { attributes, className, setAttributes } = props;
 		const { showInputShortcode } = attributes;
 			return (
 				<div className={ className }>

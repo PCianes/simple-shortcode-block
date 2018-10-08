@@ -21,13 +21,13 @@ module.exports = function(grunt) {
 				src: 'languages/*.po',
 				expand: true,
 			},
-		}
+		},
 
 		uglify: {
 			my_target: {
 				files: {
-					'admin/js/simple-shortcode-block-admin.min.js': ['admin/js/simple-shortcode-block-admin.js'],
-					'public/js/simple-shortcode-block-public.min.js': ['public/js/simple-shortcode-block-public.js'],
+					//'admin/js/simple-shortcode-block-admin.min.js': ['admin/js/simple-shortcode-block-admin.js'],
+					//'public/js/simple-shortcode-block-public.min.js': ['public/js/simple-shortcode-block-public.js'],
 				}
 			}
 		},
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 			},
 			target: {
 				files: {
-					'admin/css/simple-shortcode-block-admin.min.css': ['admin/css/simple-shortcode-block-admin.css'],
+					//'admin/css/simple-shortcode-block-admin.min.css': ['admin/css/simple-shortcode-block-admin.css'],
 					//'public/css/simple-shortcode-block-public.min.css': ['public/css/simple-shortcode-block-public.css'],
 				}
 			}
