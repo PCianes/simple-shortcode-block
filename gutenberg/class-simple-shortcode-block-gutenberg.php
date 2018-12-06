@@ -62,7 +62,7 @@ class Simple_Shortcode_Block_Gutenberg {
 		wp_register_script(
 			'simple-shortcode-block-gutenberg-editor',
 			plugin_dir_url( __FILE__ ) . 'dist/blocks.build.js',
-			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-components' ),
+			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-components', 'wp-editor' ),
 			filemtime( plugin_dir_path( __FILE__ ) . 'dist/blocks.build.js' )
 		);
 
@@ -148,6 +148,7 @@ class Simple_Shortcode_Block_Gutenberg {
 				'attributes'      => array(
 					'shortcode'          => array(
 						'type' => 'string',
+						'default' => '',
 					),
 					'showInputShortcode' => array(
 						'type'    => 'boolean',
@@ -176,7 +177,7 @@ class Simple_Shortcode_Block_Gutenberg {
 	 */
 	public static function render_dynamic_shortcode( $attributes ) {
 
-		if ( is_null( $attributes['shortcode'] ) ) {
+		if ( is_null( $attributes['shortcode'] ) || '' === $attributes['shortcode'] ) {
 			return __( 'Please, set here the [shortcode] to render', 'simple-shortcode-block' );
 		}
 
@@ -236,6 +237,25 @@ class Simple_Shortcode_Block_Gutenberg {
 		update_option( 'ssb_plugins_data_styles', $style_urls );
 		update_option( 'ssb_plugins_data_scripts', $script_urls );
 
+	}
+
+	/**
+	 * Add new custom categories for blocks
+	 *
+	 * @since    1.0.1
+	 */
+	public function add_custom_blocks_categories( $categories, $post ) {
+
+		$custom_category = array(
+			'slug'  => 'sumapress',
+			'title' => esc_html__( 'SumaPress', 'simple-cookie-control' ),
+		);
+
+		if ( false === array_search( $custom_category['slug'], array_column( $categories, 'slug' ) ) ) {
+			return array_merge( $categories, array( $custom_category ) );
+		}
+
+		return $categories;
 	}
 
 }

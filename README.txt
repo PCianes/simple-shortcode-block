@@ -1,9 +1,9 @@
-=== Simple Shortcode Block by SumaPress ===
-Contributors: pablocianes, sumapress
+=== Simple Shortcode Block ===
+Contributors: sumapress, pablocianes
 Donate link: https://pablocianes.com/
 Tags: gutenberg, shortcode, dynamic shortcode, block
 Requires at least: 4.6
-Tested up to: 4.9
+Tested up to: 5.0
 Stable tag: trunk
 Requires PHP: 5.2.4
 License: GPLv2 or later
@@ -15,14 +15,14 @@ A simple block to render a shortcode in a dynamic way into the new editor Gutenb
 
 A simple block to the new WordPress editor Gutenberg to insert and show also in the backend all your old shortcodes.
 
-This block allows you to work with shortcodes into Gutenberg like the native WordPress Block, but with a new feature: ** You can see ( in many case ) the shortcodes in the backend in a similar way as render in the frontend of the web **
+This block allows you to work with shortcodes into Gutenberg like the native WordPress Block, but with a new feature: **You can see ( in many case ) the shortcodes in the backend in a similar way as render in the frontend of the web**
 
 Now is very easy to see what your shortcodes are going to show in the web thanks of Gutenberg and this dynamic simple shortcode block.
 
-** Do not you see what you expected? Not always is possible to see the shortcode in the backend as in the frontend ** because of it is depend on each plugin and also your active theme, but this plugin allow you to try with some options to improve this:
-*   Select to include some CSS of the plugin into Gutenberg editor for each shortcode block.
-*   Select to include some JS of the plugin into Gutenberg editor for each shortcode block.
-*   Hide / Show the input where you put the shortcode to avoid to see it into the editor (see the third Screenshot).
+**Do not you see what you expected? Not always is possible to see the shortcode in the backend as in the frontend** because of it is depend on each plugin and also your active theme, but this plugin allow you to try with some options to improve this:
+*Select to include some CSS of the plugin into Gutenberg editor for each shortcode block.
+*Select to include some JS of the plugin into Gutenberg editor for each shortcode block.
+*Hide / Show the input where you put the shortcode to avoid to see it into the editor (see the third Screenshot).
 
 What You See in the backend with Gutenberg editor Is ( in many case ) What You Get! and the plugin only enqueue the selected assets if it is necesary to improve the apparience between backend and frontend.
 
@@ -52,10 +52,16 @@ You can see into Gutenberg render your shortcodes very easly and dynamic.
 
 == Changelog ==
 
+= 1.0.1 =
+* Compatible with WP5.0
+
 = 1.0.0 =
 * First publicly available version.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+* Compatible with WP5.0
 
 = 1.0.0 =
 * First publicly available version.

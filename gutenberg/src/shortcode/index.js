@@ -22,11 +22,8 @@ registerBlockType(
     {
         title: __( 'Dynamic Shortcode', 'simple-shortcode-block'),
         description: __( 'A simple block to render a shortcode in a dynamic way.', 'simple-shortcode-block'),
-		icon: {
-			background: 'rgba(41, 170, 227)',
-			src: 'shortcode',
-		},
-		category: 'widgets',
+		icon: 'shortcode',
+		category: 'sumapress',
 		supports: {
 			html: false,
 		},

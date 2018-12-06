@@ -157,6 +157,8 @@ class Simple_Shortcode_Block {
 		// $this->loader->add_action( 'enqueue_block_assets', $plugin_gutenberg, 'enqueue_all_blocks_assets_frontend' );
 		$this->loader->add_action( 'init', $plugin_gutenberg, 'register_dynamic_blocks' );
 
+		$this->loader->add_filter( 'block_categories', $plugin_gutenberg, 'add_custom_blocks_categories', 10, 2 );
+
 	}
 
 	/**
