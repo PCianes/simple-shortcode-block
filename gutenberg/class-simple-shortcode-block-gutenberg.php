@@ -192,6 +192,8 @@ class Simple_Shortcode_Block_Gutenberg {
 	 */
 	public function get_all_plugins_assets() {
 
+		$style_urls = [];
+
 		foreach ( $GLOBALS['wp_styles']->registered as $registered ) {
 
 			$style_src = $registered->src;

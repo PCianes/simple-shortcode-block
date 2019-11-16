@@ -52,6 +52,9 @@ You can see into Gutenberg render your shortcodes very easly and dynamic.
 
 == Changelog ==
 
+= 1.0.2 =
+* Fix notice.
+
 = 1.0.1 =
 * Compatible with WP5.0
 
@@ -59,6 +62,9 @@ You can see into Gutenberg render your shortcodes very easly and dynamic.
 * First publicly available version.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+* Fix notice.
 
 = 1.0.1 =
 * Compatible with WP5.0
